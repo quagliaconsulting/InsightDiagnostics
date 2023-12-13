@@ -5,7 +5,7 @@ from openai import OpenAI
 
 def main():
     # Initialize OpenAI client
-    client = OpenAI(api_key='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')
+    client = OpenAI(api_key='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')
     assistant_id = 'asst_2W47RoXSEQhyk2jc4mDq7Wqg'
 
     # Streamlit UI setup
