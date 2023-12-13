@@ -26,7 +26,7 @@ def login_page():
 # File search functionality
 #@st.cache_data(experimental_allow_widgets=True)
 def search_for_files():
-    search_term = st.text_input("Enter MRN or Name to search (leave empty for all results)")
+    search_term = st.text_input("Enter MRN to search (leave empty for all results)")
     if "files" not in st.session_state:
         st.session_state["files"] = []
     if st.button("Search"):
