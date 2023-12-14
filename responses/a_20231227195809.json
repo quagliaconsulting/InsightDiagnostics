@@ -1,0 +1,161 @@
+{
+    "name": "a",
+    "birthday": "a",
+    "mrn": "a",
+    "grouped_responses": {
+        "Psychiatric Symptoms": [
+            {
+                "question": "Do you ever find yourself feeling nervous, anxious, or on edge?",
+                "response": 2
+            },
+            {
+                "question": "Do you ever find yourself not being able to stop or control worrying?",
+                "response": 1
+            },
+            {
+                "question": "Do you have little interest or pleasure in doing things?",
+                "response": 0
+            },
+            {
+                "question": "Do you find yourself feeling down, depressed, or hopeless?",
+                "response": 0
+            },
+            {
+                "question": "I have frequent and quick changes in my emotions.",
+                "response": 1
+            },
+            {
+                "question": "I have thoughts of suicide.",
+                "response": 0
+            }
+        ],
+        "Cognition": [
+            {
+                "question": "I have difficulty findings words, more than other people my age.",
+                "response": 0
+            },
+            {
+                "question": "I have trouble with my memory.",
+                "response": 0
+            },
+            {
+                "question": "I am forgetful.",
+                "response": 2
+            },
+            {
+                "question": "I have trouble multitasking or doing many things at once.",
+                "response": 0
+            }
+        ],
+        "Vision": [
+            {
+                "question": "I have changes in my vision.",
+                "response": 1
+            },
+            {
+                "question": "I have double vision (seeing 2 of things or an object and its shadow).",
+                "response": 1
+            },
+            {
+                "question": "I see the room/world shake sometimes (like the shaking of a camera on film).",
+                "response": 0
+            },
+            {
+                "question": "I have trouble focusing on near objects (blur or a feeling your eyes do not focus)?",
+                "response": 1
+            },
+            {
+                "question": "I have trouble focusing on far objects (blur or a feeling your eyes do not focus)?",
+                "response": 1
+            }
+        ],
+        "Speech/Swallow": [
+            {
+                "question": "I have slurred speech (drunk speech).",
+                "response": 0
+            },
+            {
+                "question": "Other people ask me to repeat myself.",
+                "response": 2
+            },
+            {
+                "question": "I have trouble swallowing or frequently choke or cough when eating or drinking.",
+                "response": 0
+            },
+            {
+                "question": "I have quiet speech (hypophonia).",
+                "response": 0
+            }
+        ],
+        "Balance": [
+            {
+                "question": "I get lightheaded when I go from lying, sitting, or bending over to standing.",
+                "response": 2
+            },
+            {
+                "question": "I feel like the world is moving or spinning around me (vertigo).",
+                "response": 3
+            },
+            {
+                "question": "I have trouble walking or have changed the way I walk.",
+                "response": 1
+            },
+            {
+                "question": "When I go down a long hall, I most commonly use this for extra support: 0 - Nothing, 1 - Wall Occasionally, 2 - Cane, 3 - Walker, 4 - Wheelchair, 5 - Cannot Perform Autonomously ",
+                "response": 3
+            },
+            {
+                "question": "I have fallen this many times over the last 3 months: 0 - None, 1 - One to Two, 2 - Three to Six, 3 - Six to Ten, 4 - Ten to Fifteen, 5 - Fifteen+",
+                "response": 2
+            }
+        ],
+        "Autonomics": [
+            {
+                "question": "I get lightheaded or feel like I will pass out if I stand up quickly from laying or sitting.",
+                "response": 1
+            },
+            {
+                "question": "I have erectile dysfunction. (0 for not applicable)",
+                "response": 0
+            }
+        ],
+        "Fine Motor": [
+            {
+                "question": "My handwriting has changed.",
+                "response": 0
+            },
+            {
+                "question": "My hands are clumsy sometimes.",
+                "response": 2
+            },
+            {
+                "question": "I have difficulty with typing or texting.",
+                "response": 2
+            }
+        ],
+        "General Neurology": [
+            {
+                "question": "I have lost my sense of smell or taste or they have changed.",
+                "response": 1
+            },
+            {
+                "question": "I have constipation.",
+                "response": 0
+            },
+            {
+                "question": "I act out my dreams.",
+                "response": 0
+            },
+            {
+                "question": "I have muscle stiffness.",
+                "response": 0
+            },
+            {
+                "question": "I have painful muscle cramps.",
+                "response": 0
+            }
+        ]
+    },
+    "recommended_group": "Psychiatric Symptoms",
+    "timestamp": "2023-12-27T19:58:09"
+}
