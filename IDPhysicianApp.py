@@ -37,7 +37,7 @@ def search_for_files():
                 path = "./responses/*.json"
             else:
                 # Otherwise, search for files starting with the search term
-                path = f"./responses/{search_term}*.json"
+                path = "./responses/*.json"
 
             st.write(f"Searching for files at: {path}")  # Debug: show the search path
             matching_files = glob.glob(path)
