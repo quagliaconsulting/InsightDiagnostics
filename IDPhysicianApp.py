@@ -4,6 +4,7 @@ import json
 import pandas as pd
 import plotly.express as px
 from streamlit import cache
+from datetime import datetime
 
 
 # Dummy login page
@@ -69,18 +70,25 @@ def process_data(files):
 
     df = pd.DataFrame(all_data)
 
-    # Debug: Print the first few rows of the DataFrame
-    print(df.head())
+    # Determine the earliest and latest timestamps
+    if not df.empty:
+        earliest_timestamp = df['timestamp'].min().date()
+        latest_timestamp = df['timestamp'].max().date()
+    else:
+        # Default to today's date if there are no records
+        today = pd.to_datetime("today").date()
+        earliest_timestamp = today
+        latest_timestamp = today
 
-    return df
+    return df, earliest_timestamp, latest_timestamp
 
 
 
 # Plotting data using Plotly
 #@st.cache_data(experimental_allow_widgets=True)
-def plot_data(df, selected_groups):
-    # Filter data based on selected question groups
-    filtered_df = df[df['question_group'].isin(selected_groups)]
+def plot_data(df, selected_groups, start_date, end_date):
+    # Filter data based on selected question groups and date range
+    filtered_df = df[(df['question_group'].isin(selected_groups)) & (df['timestamp'] >= pd.to_datetime(start_date)) & (df['timestamp'] <= pd.to_datetime(end_date))]
 
     # Calculate the average response score for each question group at each timestamp
     avg_df = filtered_df.groupby(['timestamp', 'question_group'])['response'].mean().reset_index()
@@ -111,7 +119,6 @@ def display_filter_options(df):
    
     return selected_groups
 
-
 def main():
     # Initialize session state variable for login status
     if "logged_in" not in st.session_state:
@@ -122,12 +129,37 @@ def main():
     else:
         st.sidebar.empty()  # Optionally clear the sidebar
         st.title("Ataxia Questionnaire Patient Entry Dashboard")
+
         files = search_for_files()
         if files:
-            data_df = process_data(files)
+            data_df, start_date_default, end_date_default = process_data(files)
             selected_groups = display_filter_options(data_df)
+
             if selected_groups:
-                plot_data(data_df, selected_groups)
+                # Date filter widgets with default values
+                st.sidebar.subheader("Filter by Date")
+                start_date = st.sidebar.date_input("Start Date", value=start_date_default)
+                end_date = st.sidebar.date_input("End Date", value=end_date_default)
+
+                plot_data(data_df, selected_groups, start_date, end_date)
+
+            # Display buttons for each file with timestamp as label
+            st.subheader("View Response Details")
+            for file in files:
+                with open(file, 'r') as f:
+                    file_content = json.load(f)
+                    # Extract and format the timestamp
+                    timestamp_str = file_content.get("timestamp", "")
+                    if timestamp_str:
+                        timestamp = datetime.fromisoformat(timestamp_str)
+                        formatted_timestamp = timestamp.strftime("%m/%d/%Y - %H:%M:%S")
+                        button_label = f"View Responses for {formatted_timestamp}"
+                    else:
+                        button_label = f"View Responses for {file}"  # Fallback if no timestamp
+
+                if st.button(button_label):
+                    with st.expander("Patient Response Details"):
+                        st.json(file_content)
 
 if __name__ == "__main__":
     main()
