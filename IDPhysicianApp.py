@@ -5,6 +5,11 @@ import pandas as pd
 import plotly.express as px
 from streamlit import cache
 from datetime import datetime
+from common.service.auth_service import AuthService
+
+questionnaire_host = 'http://localhost:5000'
+
+auth_service = AuthService(questionnaire_host)
 
 
 # Dummy login page
@@ -21,7 +26,12 @@ def login_page():
         username = st.text_input("Username")
         password = st.text_input("Password", type='password')
         if st.button("Login"):
-            st.session_state["logged_in"] = True
+            valid_username_password = auth_service.validate_basic_auth_credentials(username,password)
+            if valid_username_password:
+                st.session_state["logged_in"] = True
+            else:
+                st.session_state["logged_in"] = False
+                st.error("Invalid login credentials")
             st.rerun()
 
 # File search functionality
