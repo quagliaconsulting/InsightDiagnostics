@@ -9,8 +9,12 @@ from datetime import datetime as dt
 
 # pdb.set_trace()  # Debugger will activate here
 
-write_to_cloud = False
+write_to_cloud = True
 
+passw = '6BkKNt5tjE'
+usr = 'patientsort'
+connStr = f'mongodb+srv://{usr}:{passw}@patientsortdb.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000'
+# connStr = f'mongodb://patientsort:i*UF8^4#o*@localhost:27017/?authSource=admin'
 # Define the grouped questions
 grouped_questions = {
     'Psychiatric Symptoms': [
@@ -130,13 +134,11 @@ def display_summary():
         st.write(f"{question}: {response}")
 
     st.subheader("Database Upload")
-    save_data_to_json()  # Save data to a JSON file
-    upload_to_azure()    # Placeholder for Azure upload    
+    jsonData = getJsonData()
+    # save_data_to_json(jsonData)  # Save data to a JSON file
+    upload_to_azure(jsonData)    # Placeholder for Azure upload    
 
-def save_data_to_json():
-    # Organize data into a dictionary
-
-    # Reorganize responses by their group
+def getJsonData():
     grouped_responses = {group: [] for group in grouped_questions}
     for question, response in st.session_state.responses.items():
         for group, questions in grouped_questions.items():
@@ -163,7 +165,14 @@ def save_data_to_json():
 
 
     # Convert the dictionary to a JSON string
-    json_str = json.dumps(data, indent=4)
+    # return json.dumps(data, indent=4)
+    return data
+
+def save_data_to_json():
+    # Organize data into a dictionary
+
+    # Reorganize responses by their group
+    
 
     # Define the path where the JSON file will be saved
     save_path = os.getcwd() + f"/responses/{st.session_state.mrn}_{timestamp.strftime('%Y%m%d%H%M%S')}.json"
@@ -173,28 +182,22 @@ def save_data_to_json():
 
     st.write(f"Data has been saved to a JSON file at {save_path}.")        
 
-def upload_to_azure():
+def upload_to_azure(data):
     # Placeholder for Azure upload
-    st.write("Uploading to Azure... (placeholder)")
+    st.write("Uploading to Azure... (not placeholder)")
 
     if write_to_cloud:
-        data = {
-                'name': st.session_state.name,
-                'birthday': st.session_state.birthday,
-                'mrn': st.session_state.mrn,
-                'responses': st.session_state.responses,
-                'recommended_group': st.session_state.recommended_group
-            }
 
         # Connect to MongoDB running on the default host and port
-        client = MongoClient('mongodb://teledizzy:ywvAlKodUU2AtH0M7XoOxK6xz4iuIlD8QH6YOVqfQb6RvIE6RtmVJsjxWgIFQ6Ez83zcI4MnAoEdACDbdQo2IA==@teledizzy.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@teledizzy@')
+        client = MongoClient(connStr)
 
         # Access database named 'mydatabase'
-        db = client['teledizzy']
+        db = client['patientsort']
         # Access collection named 'mycollection' in the database
         collection = db['questionnaire_response']
 
         collection.insert_one(data)
+    
 
 # ... [your main function]        
    
