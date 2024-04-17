@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: patientsort
+      MONGO_INITDB_ROOT_PASSWORD: i*UF8^4#o*
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    driver: local
