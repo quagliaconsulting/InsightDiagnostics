@@ -1,6 +1,7 @@
 import streamlit as st
 from utils.db_utils import get_mongo_db
 from utils.debug_logging import debug_log
+from services import be4fe_service
 
 def login_page():
     st.title("Ataxia Questionaire Physician Portal")
@@ -15,17 +16,13 @@ def login_page():
         username = st.text_input("Username")
         password = st.text_input("Password", type='password')
         if st.button("Login"):
-            query = {
-                'username':username,
-                'password':password
-            }
-            db = get_mongo_db()
-            user_collection = db['users']
-            user = user_collection.find_one(query)
-            debug_log(user)
-            if user:
+            valid_user = be4fe_service.login_basic_auth(username,password)
+            if valid_user:
                 st.session_state["logged_in"] = True
-                st.session_state["user"] = user
+                st.session_state["creds"] = {
+                    "username":username,
+                    "password":password
+                }
                 st.sidebar.empty()
                 
                 st.rerun()

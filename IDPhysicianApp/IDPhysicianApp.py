@@ -16,7 +16,7 @@ def main():
     if not st.session_state["logged_in"]:
         login_page()
     else:
-        st.sidebar.empty()  # Optionally clear the sidebar
+          # Optionally clear the sidebar
         patient_search()
 
 

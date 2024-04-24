@@ -1,12 +1,13 @@
 import streamlit as st
 from services import questionnaire_response_service
+from services import be4fe_service
 from datetime import datetime
 
 def patient_search():
     st.title("Ataxia Questionnaire Patient Entry Dashboard")
     search_term = st.text_input("Enter MRN to search")
     if search_term:
-        responses = questionnaire_response_service.search_for_responses(search_term)
+        responses = be4fe_service.search_for_responses(search_term)
 
         if responses:
             for response in responses:

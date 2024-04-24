@@ -3,5 +3,5 @@ plotly==5.17.0
 tenacity==8.2.3
 openai
 pandas
-pymongo
 python-dotenv
+requests
