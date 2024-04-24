@@ -26,4 +26,6 @@ def login_page():
             if user:
                 st.session_state["logged_in"] = True
                 st.session_state["user"] = user
+                st.sidebar.empty()
+                
                 st.rerun()
