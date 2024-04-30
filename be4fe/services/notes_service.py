@@ -35,10 +35,10 @@ def create_note(note):
     db = get_mongo_db()
     template_collection = db['note_templates']
     note_collection = db['notes']
-    template_query = {"_id":uuid.UUID(note['noteId'])}
+    template_query = {"_id":uuid.UUID(note['templateId'])}
     template = template_collection.find_one(template_query)
     debug_log(f'Creating note from template: {template}')
-    resulting_note = {"templateId":uuid.UUID(note['noteId'])}
+    resulting_note = {"templateId":uuid.UUID(note['templateId'])}
 
     for field in template['fields']:
         for key in field:
