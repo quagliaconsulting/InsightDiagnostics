@@ -4,6 +4,7 @@ from flask_httpauth import HTTPBasicAuth
 from uuid import UUID
 from services.login_service import get_user_by_username_password
 from services.questionnaire_response_service import search_for_responses
+import services.notes_service as ns
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -23,6 +24,24 @@ def verify_password(username, password):
 @auth.login_required  # Use the Basic Auth annotation to protect this endpoint
 def valid_user():
     return jsonify({})
+
+@app.route('/v1/notes/templates', methods=['GET'])
+@auth.login_required  # Use the Basic Auth annotation to protect this endpoint
+def get_note_templates():
+    note_templates = ns.get_note_templates()
+    return jsonify(note_templates)
+
+@app.route('/v1/notes/templates', methods=['POST'])
+@auth.login_required  # Use the Basic Auth annotation to protect this endpoint
+def create_note_template():
+    result = ns.create_note_templates(request.json)
+    return jsonify({"_id":result.inserted_id})
+
+@app.route('/v1/notes', methods=['POST'])
+@auth.login_required  # Use the Basic Auth annotation to protect this endpoint
+def create_note():
+    result = ns.create_note(request.json)
+    return jsonify(result)
 
 # Protected GET endpoint at /v1/questionnaires/{id}/responses
 @app.route('/v1/questionnaires/responses', methods=['GET'])
